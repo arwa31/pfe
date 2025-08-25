@@ -1,0 +1,157 @@
+<div class="sidebar">
+  <div class="filter-section">
+    <div class="filter-group">
+      <div class="row-section">
+        <div class="section">
+          <label class="section-title">Time Period</label>
+          <div class="radio-group">
+            <label><input type="radio" name="timePeriod" value="2023" [(ngModel)]="time"
+                (change)="onTimeChange('2023')" />
+
+              2022/2023</label>
+            <label><input type="radio" name="timePeriod" value="2019" [(ngModel)]="time"
+                (change)="onTimeChange('2019')" />2019</label>
+            <label><input type="radio" name="timePeriod" value="2018" [(ngModel)]="time"
+                (change)="onTimeChange('2018')" />2017/2018</label>
+            <label><input type="radio" name="timePeriod" value="combined" [(ngModel)]="time"
+                (change)="onTimeChange('combined')" /> Combined</label>
+          </div>
+        </div>
+        <div class="vertical-separator"></div>
+        <div class="section">
+          <label class="section-title">Site</label>
+          <div class="radio-group">
+
+            <label>
+              <input type="radio" name="site" value="grabouw" [(ngModel)]="selectedSite"
+                (change)="onSiteChange('grabouw')" />
+              Grabouw
+            </label>
+
+            <label>
+              <input type="radio" name="site" value="piketberg" [(ngModel)]="selectedSite"
+                (change)="onSiteChange('piketberg')" />
+              Piketberg
+            </label>
+
+            <label>
+              <input type="radio" name="site" value="hex river valley" [(ngModel)]="selectedSite"
+                (change)="onSiteChange('hex river valley')" />
+              Hex River Valley
+            </label>
+
+            <label>
+              <input type="radio" name="site" value="combined" [(ngModel)]="selectedSite"
+                (change)="onSiteChange('combined')" />
+              Combined
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+      <br>
+      <div class="section tabs">
+        <button class="tab" [ngClass]="{ 'active': activeTab === 'depth' }" (click)="showTab('depth')">
+          Map Layers
+        </button>
+        <button class="tab" [ngClass]="{ 'active': activeTab === 'concen' }" (click)="showTab('concen')">
+          Concentration Analysis
+        </button>
+        <button class="tab" [ngClass]="{ 'active': activeTab === 'riverRain' }" (click)="showTab('riverRain')">
+          Riverflow & Rainfall
+        </button>
+
+      </div>
+      <div class="section tab-content" *ngIf="activeTab === 'riverRain'">
+        <div class="layer-toggle">
+
+          <h3 class="title"> Daily average rainfall (mm/day) and daily average river flow volume (m3/day):</h3>
+          <div class="layer-item">
+            <span>River Flow & Rainfall </span>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="riverRain"
+                (change)="onCheck()" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="section tab-content" *ngIf="activeTab === 'depth'">
+        <div class="layer-toggle">
+          <div class="layer-item">
+            <span>Study Site</span>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="studySiteVisible"
+                (change)="toggleLayer('studySite', studySiteVisible)" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="layer-item">
+            <span>Gauge Spots</span>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="gaugeVisible" (change)="toggleLayer('gauge', gaugeVisible)" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="layer-item">
+            <span>River Courses</span>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="riverVisible" (change)="toggleLayer('river', riverVisible)" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="layer-item">
+            <span>Land Use</span>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="landuseVisible" (change)="toggleLayer('land', landuseVisible)">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="layer-item">
+            <span>WWTP</span>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="wWTPVisible" (change)="toggleLayer('wwtp', wWTPVisible)" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="section tab-content" *ngIf="activeTab === 'concen'">
+        <div class="panel">
+           <h3 class="title"> Pesticide concentration distribution by :</h3>
+          <label>
+            <input type="radio" name="concentrationMode" value="class" [(ngModel)]="concentrationMode"
+              (change)="onPesticideChange()">
+            Class
+          </label>
+          <label>
+            <input type="radio" name="concentrationMode" value="pesticide" [(ngModel)]="concentrationMode"
+              (change)="onPesticideChange()">
+            Specific Pesticide
+          </label>
+
+          <div *ngIf="concentrationMode === 'pesticide'" class="pesticide-select">
+            <select [(ngModel)]="selectedPesticideName" (change)="onPesticideChange()">
+              <option disabled selected>Select pesticide</option>
+              <option *ngFor="let pesticide of pesticides" [value]="pesticide.pesticide_name">
+                {{ pesticide.pesticide_name }}
+              </option>
+            </select>
+          </div>
+          <label>
+            <input type="radio" name="concentrationMode" value="none" [(ngModel)]="concentrationMode"
+              (change)="onPesticideChange()">
+            None
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

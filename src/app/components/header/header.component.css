@@ -1,0 +1,65 @@
+#header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  background-color: #3277c5;
+  color: white;
+  padding: 0 20px; /* Padding vertical réduit à 0 */
+  font-family: Arial, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px; /* Hauteur réduite */
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.header-left img {
+  height: 30px; /* Taille réduite pour s'adapter à la nouvelle hauteur */
+  object-fit: contain;
+}
+
+.header-center {
+  position: relative;
+  height: 100%;
+}
+
+.header-center h4 {
+  font-size: 14px; /* Taille légèrement augmentée */
+  margin: 0px;
+  padding: 0;
+  line-height: 40px; /* Correspond à la hauteur du header */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: -2px; /* Décalage vers le haut */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 40px; /* Marge réduite */
+  height: 100%; /* Prend toute la hauteur du header */
+}
+
+#help-button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #3277c5; /* Bordure plus subtile */
+  padding: 2px 8px; /* Padding vertical réduit */
+  border-radius: 4px;
+  font-size: 12px; /* Taille de police réduite */
+  cursor: pointer;
+  transition: all 0.3s;
+  height: 24px; /* Hauteur fixe pour mieux contrôler l'alignement */
+  display: flex;
+  align-items: center;
+}
+
+#help-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}

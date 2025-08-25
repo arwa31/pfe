@@ -1,0 +1,31 @@
+<div class="modal" [style.display]="isOpen ? 'flex' : 'none'">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeModal()">&times;</span>
+    <h2>Help and background information</h2>
+
+    <div class="modal-tabs">
+      <button class="tab-button" [class.active]="activeTab === 'quick-guide'" (click)="setActiveTab('quick-guide')">Quick guide</button>
+      <button class="tab-button" [class.active]="activeTab === 'about-app'" (click)="setActiveTab('about-app')">About the application</button>
+      <button class="tab-button" [class.active]="activeTab === 'terms-cond'" (click)="setActiveTab('terms-cond')">Terms and conditions</button>
+      <button class="tab-button" [class.active]="activeTab === 'data-sources'" (click)="setActiveTab('data-sources')">Data sources</button>
+    </div>
+
+    <div class="tab-content" [style.display]="activeTab === 'quick-guide' ? 'block' : 'none'">
+      <p>Quick guide about the application goes here.</p>
+    </div>
+
+    <div class="tab-content" [style.display]="activeTab === 'about-app' ? 'block' : 'none'">
+      <p>Information about the application goes here.</p>
+    </div>
+    <div class="tab-content" [style.display]="activeTab === 'terms-cond' ? 'block' : 'none'">
+      <p>Terms and conditions information goes here.</p>
+    </div>
+    <div class="tab-content" [style.display]="activeTab === 'data-sources' ? 'block' : 'none'">
+      <p>Data sources information goes here.</p>
+    </div>
+
+    <div class="modal-footer">
+      <button class="close-button" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>

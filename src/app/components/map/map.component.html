@@ -1,0 +1,121 @@
+<!-- === Résumé en haut === -->
+<div class="summary-cards-container">
+  <div class="summary-card summary-card1">
+    <div class="summary-info">
+      <h3>{{ totalPD }}</h3>
+      <p>Unique pesticides detected</p>
+    </div>
+  </div>
+
+  <div class="summary-card summary-card2">
+    <div class="summary-info">
+      <h3>{{ totalSite }}</h3>
+      <p>Total sites monitored</p>
+    </div>
+  </div>
+
+  <div class="summary-card summary-card3">
+    <div class="summary-info">
+      <h3>{{ totalSamples }}</h3>
+      <p>Total samples collected</p>
+    </div>
+  </div>
+</div>
+
+<!-- === WRAPPER PRINCIPAL EN 2 COLONNES === -->
+<div class="main-wrapper">
+  
+  <!-- === COLONNE GAUCHE : MAP + BAR CHART === -->
+  <div class="left-column">
+    <!-- MAP WRAPPER -->
+    <div class="map-wrapper" 
+         [ngClass]="{
+            'map-full': selectedSite === '' || selectedSite.toLowerCase() === 'combined' || !showBarChart,
+            'map-reduced': selectedSite !== '' && selectedSite.toLowerCase() !== 'combined'
+         }">
+
+      <div id="map" class="map">
+        <!-- BASEMAP SWITCHER -->
+        <div class="basemap-switcher">
+          <button [class.active]="selectedBaseLayer === 'osm'" (click)="switchBaseLayer('osm')">OSM</button>
+          <button [class.active]="selectedBaseLayer === 'google'" (click)="switchBaseLayer('google')">Satellite</button>
+          <button [class.active]="selectedBaseLayer === 'none'" (click)="switchBaseLayer('none')">None</button>
+        </div>
+
+        <!-- LÉGENDE -->
+        <div class="map-legend" *ngIf="showWWTP || showStudy || showGauge || showRiver">
+          <h4>Legend</h4>
+          <div class="legend-item" *ngIf="showWWTP">
+            <img [src]="wwtpIconSrc" class="legend-icon" alt="WWTP" />
+            <span>Wastewater Treatment Plant</span>
+          </div>
+          <div class="legend-item" *ngIf="showStudy">
+            <img src="assets/images/study.png" class="legend-icon" alt="Study Site" />
+            <span>Study Site</span>
+          </div>
+          <div class="legend-item" *ngIf="showRiver">
+            <div class="legend-line"></div>
+            <span>Rivers</span>
+          </div>
+          <div class="legend-item" *ngIf="showGauge">
+            <img src="assets/images/rain.png" width="20" />
+            <span>Rain gauge</span>
+          </div>
+          <div class="legend-item" *ngIf="showGauge">
+            <img src="assets/images/discharge.png" width="20" />
+            <span>Discharge gauge</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAR CHART -->
+    <div class="line-chart" *ngIf="showBarChart">
+      <div class="chart-body">
+        <canvas #barChart id="barChart" width="400" height="80"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- === COLONNE DROITE : PIE CHART + LINE CHART === -->
+  <div class="right-column charts-container" [class.active]="showLineChart || showLand">
+    <!-- PIE CHART -->
+    <div class="pie-container" *ngIf="showLand">
+      <div class="title">
+        Distribution of land use for - {{ selectedSite }}
+      </div>
+      <div class="pie-content">
+        <div class="legend left">
+          <p><span class="box grapes"></span> Grapes</p>
+          <p><span class="box other-agriculture"></span> Other agri</p>
+          <p><span class="box cereals"></span> Cereals</p>
+          <p><span class="box citrus-fruits"></span> Citrus fruits</p>
+        </div>
+        <canvas #landUseChart ></canvas>
+        <div class="legend right">
+          <p><span class="box pome-fruit"></span> Pome fruit</p>
+          <p><span class="box other-fruit"></span> Other fruit</p>
+          <p><span class="box other"></span> Other</p>
+          <p><span class="box stone-fruit"></span> Stone fruit</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LINE CHART -->
+    <div class="line-chart" *ngIf="showLineChart">
+      <div class="chart-body">
+        <canvas #lineChart id="lineChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP -->
+<div #popup class="popup">
+  <div id="popup-content"></div>
+</div>
+
+<!-- LOADER -->
+<div class="spinner-overlay" *ngIf="loadingLandUse">
+  <div class="spinner"></div>
+</div>

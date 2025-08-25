@@ -1,0 +1,78 @@
+.grid-container {
+  display: flex;
+  height: 100vh;
+}
+
+.grid-1 {
+  padding: 10px;
+  width: 300px;
+  background: #F8FAFF;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+/* Quand sidebar est cachée : on la décale à gauche */
+.grid-1:not(.show) {
+  transform: translateX(-100%);
+}
+
+/* Contenu principal prend tout l'espace quand sidebar cachée */
+.grid-2 {
+  flex: 1;
+  background: #F8FAFF;
+  transition: margin-left 0.3s ease;
+  padding: 10px;
+}
+
+/* Pour que la map prenne toute la largeur si sidebar cachée */
+.grid-2.expanded {
+  margin-left: 0;
+}
+
+/* Bouton toggle */
+.toggle-button {
+  display: none; /* Masqué par défaut */
+  position: fixed;
+  left: 170px;
+  z-index: 1000;
+  background: #3277c5;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 10px;
+}
+
+
+
+
+@media (max-width: 900px) {
+  .grid-container {
+    flex-direction: column;
+  }
+
+  .grid-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 300px;
+    background-color: white;
+    z-index: 999;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .grid-1.show {
+    transform: translateX(0);
+  }
+
+  .grid-2 {
+    flex: 1;
+  }
+
+  .toggle-button {
+    display: block;
+  }
+}
